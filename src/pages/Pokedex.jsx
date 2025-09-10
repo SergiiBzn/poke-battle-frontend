@@ -5,7 +5,7 @@ const Pokedex = () => {
   const { pokemons, error, loading } = usePokemons();
   return (
     <div className="container my-4 space-y-4 mx-auto">
-      <h1 className="text-3xl text-center">Wählen deine Pokemons aus</h1>
+      <h1 className="text-3xl text-center py-10">Wählen deine Pokemons aus</h1>
       {error && <div>failed to get pokemons</div>}
       {loading && <div>loading</div>}
       {!loading && !error && pokemons.length > 0 && (

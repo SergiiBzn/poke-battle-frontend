@@ -1,4 +1,8 @@
-export default function Pokeball({ isCaught, handleCatch }) {
+import { useContext } from "react";
+import { PokeContext } from "../contexts/PokeContext";
+export default function Pokeball({ pokemon }) {
+  const { isCaught, handleCatch } = useContext(PokeContext);
+
   // Base Color if isCaught = true
   const baseColors = {
     outerCircleFill: "white",
@@ -14,7 +18,7 @@ export default function Pokeball({ isCaught, handleCatch }) {
     centerCircleFill: "rgba(255,255,255,0.3)",
   };
 
-  const currentColors = isCaught ? baseColors : transparentColors;
+  const currentColors = isCaught(pokemon) ? baseColors : transparentColors;
 
   return (
     <svg
@@ -22,7 +26,11 @@ export default function Pokeball({ isCaught, handleCatch }) {
       height="32"
       viewBox="0 0 200 200"
       className="cursor-pointer transition-all duration-300"
-      onClick={handleCatch}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleCatch(pokemon);
+      }}
     >
       {/* outer circle */}
       <circle

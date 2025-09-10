@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import PokeCard from "../components/PokeCard";
 
-import { usePokemons } from "../hooks/usePokemonData";
+import { PokeContext } from "../contexts/PokeContext";
 const Pokedex = () => {
-  const { pokemons, error, loading } = usePokemons();
+  const { pokemons, error, loading } = useContext(PokeContext);
   return (
     <div className="container my-4 space-y-4 mx-auto">
       <h1 className="text-3xl text-center py-10">Wählen deine Pokemons aus</h1>

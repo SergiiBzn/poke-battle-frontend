@@ -1,8 +1,10 @@
 import { createContext, useEffect, useState } from "react";
+import { usePokemons } from "../hooks/usePokemonData";
 
 export const PokeContext = createContext();
 
 const PokeContextProvider = ({ children }) => {
+  const { maxStats } = usePokemons();
   const [myPokemons, setMyPokemons] = useState(
     JSON.parse(localStorage.getItem("myPokemons")) || []
   );
@@ -34,6 +36,7 @@ const PokeContextProvider = ({ children }) => {
   return (
     <PokeContext
       value={{
+        maxStats,
         myPokemons,
         isCaught,
         handleCatch,

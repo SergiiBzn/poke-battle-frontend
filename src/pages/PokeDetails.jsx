@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router";
-import { usePokemons, usePokemon } from "../../hooks/usePokemonData";
+import { usePokemons, usePokemon } from "../hooks/usePokemonData";
 
 import { Pokeball } from "../components";
 

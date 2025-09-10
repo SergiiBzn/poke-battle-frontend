@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import pLimit from "p-limit";
 export const usePokemons = () => {
-  const pokeURL = "https://pokeapi.co/api/v2/pokemon?limit=20";
+  const pokeNum = 250;
+  const pokeURL = `https://pokeapi.co/api/v2/pokemon?limit=${pokeNum}`;
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +13,25 @@ export const usePokemons = () => {
     Defense: 0,
     Speed: 0,
   });
-
+  const limit = pLimit(5);
+  const fetchPokemonDetails = async (pokemon, controller) => {
+    const { url, name } = pokemon;
+    try {
+      const res = await fetch(url, { signal: controller.signal });
+      if (!res.ok) {
+        setError(`Failed to fetch details for ${name}`);
+        return null;
+      }
+      return await res.json();
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.info("fetch aborted");
+      } else {
+        setError(`Failed to fetch details for ${name}`);
+      }
+      return null;
+    }
+  };
   useEffect(() => {
     const controller = new AbortController();
     const fetchPokemons = async () => {
@@ -24,13 +44,9 @@ export const usePokemons = () => {
         if (!res.ok) throw new Error("failed to get pokemons!");
         const data = await res.json();
         const pokemonPromises = data.results.map(async (pokemon) => {
-          const pokemonRes = await fetch(pokemon.url, {
-            signal: controller.signal,
+          return limit(() => {
+            return fetchPokemonDetails(pokemon, controller);
           });
-          if (!pokemonRes.ok) {
-            throw new Error(`Failed to get details for ${pokemon.name}`);
-          }
-          return pokemonRes.json();
         });
 
         const detailedPokemons = await Promise.all(pokemonPromises);
@@ -55,28 +71,29 @@ export const usePokemons = () => {
             Speed: stats[5].value,
           };
         });
+        if (optimalPokemons.length >= pokeNum) {
+          const maxHP = Math.max(...optimalPokemons.map((p) => p.HP));
+          const maxAttack = Math.max(...optimalPokemons.map((p) => p.Attack));
+          const maxDefense = Math.max(...optimalPokemons.map((p) => p.Defense));
+          const maxSpeed = Math.max(...optimalPokemons.map((p) => p.Speed));
 
-        const maxHP = Math.max(...optimalPokemons.map((p) => p.HP));
-        const maxAttack = Math.max(...optimalPokemons.map((p) => p.Attack));
-        const maxDefense = Math.max(...optimalPokemons.map((p) => p.Defense));
-        const maxSpeed = Math.max(...optimalPokemons.map((p) => p.Speed));
-
-        setPokemons(optimalPokemons);
-        setMaxStats({
-          HP: maxHP,
-          Attack: maxAttack,
-          Defense: maxDefense,
-          Speed: maxSpeed,
-        });
+          setPokemons(optimalPokemons);
+          setMaxStats({
+            HP: maxHP,
+            Attack: maxAttack,
+            Defense: maxDefense,
+            Speed: maxSpeed,
+          });
+          setLoading(false);
+        }
       } catch (error) {
         if (error.name === "AbortError") {
           console.info("fetch aborted");
         } else {
           console.error("Error fetching pokemons:", error);
           setError(error.message);
+          setLoading(false);
         }
-      } finally {
-        setLoading(false);
       }
     };
     fetchPokemons();

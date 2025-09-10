@@ -1,1 +1,27 @@
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+@import "tailwindcss";
+@plugin 'daisyui';
+@theme {
+  --font-luckiest: "Luckiest Guy", sans-serif;
+}
+@font-face {
+  font-family: "Pokemon Hollow";
+  src: url("/fonts/Pokemon-Hollow.woff2") format("woff2"),
+    url("/fonts/Pokemon-Hollow.woff") format("woff"),
+    url("/fonts/Pokemon-Hollow.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pokemon Solid";
+  src: url("/fonts/Pokemon-Solid.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-pokeho: "Pokemon Hollow", sans-serif;
+  --font-pokeso: "Pokemon Solid", sans-serif;
+}

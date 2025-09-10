@@ -1,9 +1,10 @@
 import Pokeball from "./Pokeball";
 import { Link } from "react-router";
-import { usePokemons } from "../../hooks/usePokemonData";
+import { useContext } from "react";
+import { PokeContext } from "../contexts/PokeContext";
 
 const PokeCard = ({ pokemon }) => {
-  const { maxStats } = usePokemons();
+  const { maxStats } = useContext(PokeContext);
 
   return (
     <Link

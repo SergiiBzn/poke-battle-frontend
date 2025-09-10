@@ -25,7 +25,9 @@ export default function Pokeball({ pokemon }) {
       width="32"
       height="32"
       viewBox="0 0 200 200"
-      className="cursor-pointer transition-all duration-300"
+      className={`cursor-pointer transition-all duration-300 ${
+        isCaught(pokemon) ? "" : "hover:animate-bounce"
+      }`}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();

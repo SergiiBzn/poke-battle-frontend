@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router";
-import { usePokemons, usePokemon } from "../hooks/usePokemonData";
-
+import { usePokemon } from "../hooks/usePokemonData";
 import { Pokeball } from "../components";
+import { useContext } from "react";
+import { PokeContext } from "../contexts/PokeContext";
 
 const PokeDetails = () => {
-  const { maxStats } = usePokemons();
-
+  const { maxStats } = useContext(PokeContext);
   const { id } = useParams();
   const pokemon = usePokemon(id);
 
@@ -25,7 +25,7 @@ const PokeDetails = () => {
     <div className="container max-w-2xl bg-white rounded-3xl p-4 mx-auto my-10">
       <div>
         <div className=" text-yellow-900 flex justify-center items-center my-4 gap-16">
-          <span className="transform transition hover:animate-bounce">
+          <span>
             <Pokeball pokemon={pokemon} />
           </span>
           <span className="text-center font-luckiest text-4xl">

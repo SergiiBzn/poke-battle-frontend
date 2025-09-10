@@ -77,7 +77,7 @@ const PokeCard = ({ pokemon }) => {
             </div>
           </div>
           <div className=" text-yellow-900 flex justify-center items-center my-4 gap-4">
-            <span className="transform transition hover:animate-bounce">
+            <span>
               <Pokeball pokemon={pokemon} />
             </span>
             <span className="text-center font-luckiest text-2xl">

@@ -3,13 +3,13 @@ import { BattleContext } from "../contexts/BattleContex";
 
 const RandomCard = ({ pokemon }) => {
   const { image, name } = pokemon;
-  const { isFighting } = useContext(BattleContext);
+  const { openCard } = useContext(BattleContext);
 
   return (
-    <div className="w-2/3 m-2 ">
+    <div className="w-full h-20 m-2 ">
       <div
-        className="relative w-full h-20 transition-transform duration-700 [transform-style:preserve-3d]"
-        style={{ transform: isFighting ? "rotateX(180deg)" : "rotateX(0deg)" }}
+        className="relative w-full h-full min-h-[5rem] transition-transform duration-700 [transform-style:preserve-3d]"
+        style={{ transform: openCard ? "rotateX(180deg)" : "rotateX(0deg)" }}
       >
         {/* vorwarts */}
         <div className="absolute inset-0 flex items-center bg-blue-400 rounded-2xl p-2 border-amber-200 [backface-visibility:hidden]">

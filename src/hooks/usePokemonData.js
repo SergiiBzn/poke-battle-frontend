@@ -59,6 +59,7 @@ export const usePokemons = () => {
           const stats = poke.stats.map((s) => {
             return { name: s.stat.name, value: s.base_stat };
           });
+          const totalStatsPoints = stats.reduce((acc, s) => acc + s.value, 0);
           return {
             id: poke.id,
             name: poke.name,
@@ -69,6 +70,7 @@ export const usePokemons = () => {
             Attack: stats[1].value,
             Defense: stats[2].value,
             Speed: stats[5].value,
+            totalStatsPoints,
           };
         });
         if (optimalPokemons.length >= pokeNum) {

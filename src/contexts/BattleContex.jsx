@@ -58,19 +58,20 @@ const BattleContexProvider = ({ children }) => {
     //
     resetBattleState();
   };
+  const calcScore = (poke1, poke2) => {
+    const base = 10;
+    const diff = Math.abs(poke1.totalStatsPoints - poke2.totalStatsPoints);
+    const bonus = Math.floor(Math.sqrt(diff)) * 3;
+    const randomBonus = Math.floor(Math.random() * 10);
+    return base + bonus + randomBonus;
+  };
   const checkWin = (poke1, poke2) => {
     if (!poke1 || !poke2) return null;
 
-    if (poke1.totalStatsPoints > poke2.totalStatsPoints) {
-      setScore((prev) => prev + 15);
+    if (poke1.totalStatsPoints >= poke2.totalStatsPoints) {
+      setScore((prev) => prev + calcScore(poke1, poke2));
       return poke1;
-    } else if (poke1.totalStatsPoints < poke2.totalStatsPoints) {
-      return poke2;
     } else {
-      if (poke1.id > poke2.id) {
-        setScore((prev) => prev + 15);
-        return poke1;
-      }
       return poke2;
     }
   };
@@ -79,9 +80,17 @@ const BattleContexProvider = ({ children }) => {
     setCurrentBattleIndex(0);
     setIsFighting(false);
   };
-  const startAllBattles = () => {
-    console.log(matchPairArray.length);
 
+  const resetAllBattles = () => {
+    setCurrentBattleIndex(0);
+    setIsFighting(false);
+    setScore(0);
+    setMyTeam([]);
+    setRandomTeam([]);
+    setmatchPairArray([]);
+  };
+
+  const startAllBattles = () => {
     if (matchPairArray.length > 0) {
       setIsFighting(true);
       setAllBattlesFinished(false);
@@ -121,6 +130,7 @@ const BattleContexProvider = ({ children }) => {
         resetBattleState,
         advanceToNextBattle,
         setAllBattlesFinished,
+        resetAllBattles,
       }}
     >
       {children}

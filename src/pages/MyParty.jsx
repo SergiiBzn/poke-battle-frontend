@@ -8,11 +8,13 @@ const MyParty = () => {
 
   return (
     <div className="container my-4 space-y-4 mx-auto">
-      <h1 className="text-xl md:text-2xl text-center py-10">
-        Hier ist your Team !
-      </h1>
+      {myPokemons.length > 0 && (
+        <h1 className="text-xl text-center py-4 font-pokeso tracking-widest text-orange-400">
+          Hier ist your Team !
+        </h1>
+      )}
       {!myPokemons.length && (
-        <div className="text-xl md:text-2xl text-center">
+        <div className="text-xl text-center py-4 font-pokeso tracking-widest text-orange-400">
           Bitte wählen Sie Pokemons{" "}
           <Link to="/" className="link link-info">
             hier

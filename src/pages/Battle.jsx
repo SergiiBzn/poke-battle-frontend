@@ -1,7 +1,7 @@
-import { useContext, useState, useEffect } from "react";
-import { PokeContext } from "../contexts/PokeContext";
-import { FightCard, MyCard, RandomCard } from "../components";
-import { BattleContext } from "../contexts/BattleContex";
+import { useContext, useState, useEffect } from 'react';
+import { PokeContext } from '../contexts/PokeContext';
+import { FightCard, MyCard, RandomCard, Result } from '../components';
+import { BattleContext } from '../contexts/BattleContex';
 
 const Battle = () => {
   const { myPokemons } = useContext(PokeContext);
@@ -13,7 +13,6 @@ const Battle = () => {
     isFighting,
     startAllBattles,
     score,
-    // allBattlesFinished,
   } = useContext(BattleContext);
 
   const [buttonLocked, setButtonLocked] = useState(false);
@@ -25,17 +24,17 @@ const Battle = () => {
   }, [myTeam]);
 
   return (
-    <div className="grid grid-cols-[1fr_2fr_1fr] h-[60vh] gap-4 m-4">
-      <div className=" rounded-2xl border-2  border-amber-200 overflow-y-auto">
-        <div className="flex flex-col items-center mx-2 max-h-[calc(60vh-2rem)">
+    <div className='grid grid-cols-[1fr_2fr_1fr] h-[60vh] gap-4 m-4'>
+      <div className=' rounded-2xl border-2  border-amber-200 overflow-y-auto'>
+        <div className='flex flex-col items-center mx-2 max-h-[calc(60vh-2rem)'>
           {myPokemons.map((pokemon) => (
             <MyCard key={pokemon.name} pokemon={pokemon} />
           ))}
         </div>
       </div>
-      <div className="flex flex-col items-center max-h-[calc(60vh-2rem) ">
-        {" "}
-        <div className="w-full rounded-2xl border-2 h-[calc(50vh)]  border-red-400 overflow-y-auto">
+      <div className='flex flex-col items-center max-h-[calc(60vh-2rem) '>
+        {' '}
+        <div className='w-full rounded-2xl border-2 h-[calc(50vh)]  border-red-400 overflow-y-auto'>
           {matchPairArray.map((pair, index) => (
             <FightCard
               key={pair[0].id}
@@ -44,9 +43,9 @@ const Battle = () => {
               index={index}
             />
           ))}
-        </div>{" "}
+        </div>{' '}
         <button
-          className="btn btn-xl btn-error rounded-2xl mt-4 "
+          className='btn btn-xl btn-error rounded-2xl mt-4 '
           disabled={!readyToFight || buttonLocked}
           onClick={() => {
             startAllBattles();
@@ -58,13 +57,14 @@ const Battle = () => {
         </button>
         score: {score}
       </div>
-      <div className="rounded-2xl border-2 border-blue-300 overflow-y-auto">
-        <div className="flex flex-col items-center mx-2 max-h-[calc(60vh-2rem)">
+      <div className='rounded-2xl border-2 border-blue-300 overflow-y-auto'>
+        <div className='flex flex-col items-center mx-2 max-h-[calc(60vh-2rem)'>
           {randomTeam.map((pokemon) => (
             <RandomCard key={pokemon.id} pokemon={pokemon} />
           ))}
         </div>
       </div>
+      <Result />
     </div>
   );
 };

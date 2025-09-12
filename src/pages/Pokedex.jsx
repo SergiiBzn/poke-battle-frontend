@@ -6,8 +6,8 @@ const Pokedex = () => {
   const { pokemons, error, loading } = useContext(PokeContext);
   return (
     <div className="container my-4 space-y-4 mx-auto">
-      <h1 className="text-xl md:text-2xl text-center py-10">
-        Wählen deine Pokemons aus
+      <h1 className="text-xl text-center py-4 font-pokeso tracking-widest text-orange-400">
+        Wählen deine Pokemons aus !
       </h1>
       {error && <div>failed to get pokemons</div>}
       {loading && <div>loading</div>}

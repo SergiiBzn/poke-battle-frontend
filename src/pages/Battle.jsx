@@ -12,7 +12,6 @@ const Battle = () => {
     myTeam,
     isFighting,
     startAllBattles,
-    score,
   } = useContext(BattleContext);
 
   const [buttonLocked, setButtonLocked] = useState(false);

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { BattleContext } from "../contexts/BattleContex";
 
@@ -8,7 +8,6 @@ function Result() {
     score,
     allBattlesFinished,
     setAllBattlesFinished,
-    // resetBattleState,
     resetAllBattles,
     setOpenCard,
   } = useContext(BattleContext);
@@ -18,6 +17,18 @@ function Result() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (allBattlesFinished) {
+      timer = setTimeout(() => setShowModal(true), 1000);
+    } else {
+      setShowModal(false);
+    }
+    return () => clearTimeout(timer);
+  }, [allBattlesFinished]);
 
   const handleClose = () => {
     setAllBattlesFinished(false);
@@ -53,7 +64,7 @@ function Result() {
   };
 
   return (
-    <dialog className="modal" open={allBattlesFinished}>
+    <dialog className="modal" open={showModal}>
       <div className="modal-box">
         <h3 className="font-bold text-2xl text-center mb-4">Battle Result</h3>
         <div className="text-center">

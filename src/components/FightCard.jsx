@@ -26,13 +26,17 @@ const FightCard = ({ myPoke, randomPokemon, index }) => {
       await sleep(ms);
       const result = checkWin(myPoke, randomPokemon);
       setWinner(result.name);
+      console.log("my:", myPoke.totalStatsPoints);
+      console.log("random:", randomPokemon.totalStatsPoints);
 
       const next = advanceToNextBattle();
       if (!next) {
         setAllBattlesFinished(true);
       }
     };
+
     runBattle();
+
     return () => {
       setInCombat(false);
     };

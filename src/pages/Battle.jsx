@@ -33,8 +33,9 @@ const Battle = () => {
           ))}
         </div>
       </div>
-      <div className="flex flex-col items-center ">
-        <div className="w-full rounded-2xl border-2 h-4/5 border-red-400 overflow-y-auto">
+      <div className="flex flex-col items-center max-h-[calc(60vh-2rem) ">
+        {" "}
+        <div className="w-full rounded-2xl border-2 h-[calc(50vh)]  border-red-400 overflow-y-auto">
           {matchPairArray.map((pair, index) => (
             <FightCard
               key={pair[0].id}
@@ -43,7 +44,7 @@ const Battle = () => {
               index={index}
             />
           ))}
-        </div>
+        </div>{" "}
         <button
           className="btn btn-xl btn-error rounded-2xl mt-4 "
           disabled={!readyToFight || buttonLocked}

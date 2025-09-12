@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { BattleContext } from "../contexts/BattleContex";
 
-const RandomCard = ({ pokemon }) => {
+const RandomCard = ({ pokemon, winner }) => {
   const { image, name } = pokemon;
   const { openCard } = useContext(BattleContext);
-
+  const isDefeated = winner && winner !== pokemon.name;
+  const isWin = winner && winner === pokemon.name;
   return (
     <div className="w-full h-20 m-2 ">
       <div
@@ -30,10 +31,19 @@ const RandomCard = ({ pokemon }) => {
                 <img src={image} />
               </div>
             </div>
-            <div className="w-2/3 font-luckiest text-center text-yellow-300">
+            <div
+              className={`w-2/3 font-luckiest text-center text-yellow-300 ${
+                isWin ? "scale-125 animate-bounce" : ""
+              }`}
+            >
               {name}
             </div>
           </div>
+          {isDefeated && (
+            <div className="absolute inset-0  bg-gray-500 opacity-80 flex items-center justify-center rounded-2xl z-20 ">
+              <span className="text-red-500 font-pokeso text-lg">DEFEATED</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

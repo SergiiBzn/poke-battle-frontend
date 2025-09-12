@@ -56,26 +56,26 @@ const FightCard = ({ myPoke, randomPokemon, index }) => {
     setScore(0);
   }, [myTeam, setWinner, setInCombat, setScore]);
   return (
-    <div className="w-full grid grid-cols-[1fr_1fr_1fr] items-center p-2 ">
-      <div className="flex justify-center items-center">
+    <div className="w-full grid grid-cols-[1fr_150px_1fr] items-center p-1 ">
+      <div className="flex justify-center items-center w-full h-full">
         <MyCard pokemon={myPoke} winner={winner} />
       </div>
-      <div className="flex flex-col justify-center items-center gap-2 ">
-        <div className="tracking-widest font-pokeso text-yellow-300">
+      <div className="flex flex-col justify-center items-center self-start mt-2 gap-3 px-2 ">
+        <div className="w-full text-center tracking-widest font-pokeso text-yellow-300 overflow-hidden">
           {winner ? `${winner} win` : inCombat ? "Fighting" : "VS"}
         </div>
         {inCombat ? (
-          <progress className=" progress progress-error w-1/2"></progress>
+          <progress className=" progress progress-error w-full"></progress>
         ) : (
           <progress
-            className=" progress progress-error w-1/2"
+            className=" progress progress-error w-full"
             value={100}
             max={100}
           ></progress>
         )}
       </div>
 
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center w-full h-full">
         <RandomCard pokemon={randomPokemon} winner={winner} />
       </div>
     </div>

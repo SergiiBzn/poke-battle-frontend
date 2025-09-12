@@ -54,7 +54,7 @@ const FightCard = ({ myPoke, randomPokemon, index }) => {
   return (
     <div className="w-full grid grid-cols-[1fr_1fr_1fr] items-center p-2 ">
       <div className="flex justify-center items-center">
-        <MyCard pokemon={myPoke} />
+        <MyCard pokemon={myPoke} winner={winner} />
       </div>
       <div className="flex flex-col justify-center items-center gap-2 ">
         <div className="tracking-widest font-pokeso text-yellow-300">
@@ -72,7 +72,7 @@ const FightCard = ({ myPoke, randomPokemon, index }) => {
       </div>
 
       <div className="flex justify-center items-center">
-        <RandomCard pokemon={randomPokemon} />
+        <RandomCard pokemon={randomPokemon} winner={winner} />
       </div>
     </div>
   );

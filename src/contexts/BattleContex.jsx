@@ -16,9 +16,6 @@ const BattleContexProvider = ({ children }) => {
   const [allBattlesFinished, setAllBattlesFinished] = useState(false);
 
   const addRandomPokemon = (myPoke) => {
-    // const restPokemons = myPokemons
-    //   ? pokemons.filter((p) => !myPokemons.includes(p))
-    //   : pokemons;
     const restPokemons = pokemons.filter((p) => !myPokemons.includes(p));
     let randomPokemon;
     if (!restPokemons || restPokemons.length === 0) return;

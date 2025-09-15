@@ -10,7 +10,16 @@ const Pokedex = () => {
         Wählen deine Pokemons aus !
       </h1>
       {error && <div>failed to get pokemons</div>}
-      {loading && <div>loading</div>}
+      {loading && (
+        <div className="flex flex-col justify-center items-center text-secondary gap-4">
+          <div className="text-lg">loading</div>
+          <div>
+            <span className="loading loading-spinner loading-lg "></span>
+            <span className="loading loading-spinnerloading-lg "></span>
+            <span className="loading loading-spinner loading-lg "></span>
+          </div>
+        </div>
+      )}
       {!loading && !error && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto">
           {pokemons.map((pokemon) => {

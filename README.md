@@ -20,6 +20,7 @@ git clone https://github.com/SergiiBzn/poke-battle-frontend.git
 cd poke-battle-frontend
 npm install
 npm run dev
+```
 
 ## Link:
 https://poke-battle-frontend.onrender.com
